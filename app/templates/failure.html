@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		{% extends "layout.html" %}
+		{% block content %}
+			<div class="home">
+				<h1>Hello World</h1>
+				<p>The journey of a thousand miles starts with a single html file.</p>
+			</div>
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$.ajax({
+						method: "GET",
+						url: "/app/templates/test.json",
+					}).done(function(response){
+						user_list = response.Users;
+						for(i = 0; i<user_list.length; i++){
+							tr = "<tr>";
+							tr += "<td>";
+							tr += user_list[i]["UserId"];
+							tr += "</td>";
+							tr += "<td>";
+							tr += user_list[i]["UserName"];
+							tr += "</td>";
+							tr += "<td>";
+							tr += user_list[i]["Path"];
+							tr += "</td>";
+							tr += "<td>";
+							tr += user_list[i]["CreateDate"];
+							tr += "</td>";
+							tr += "<td>";
+							tr += user_list[i]["Arn"];
+							tr += "</td>";
+							tr += "<tr>";
+							$("#iam_tbody").append(tr);
+						}
+					});
+				});
+			</script>
+		{% endblock %}
+	</body>
+</html>
